@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         colorViewModel = ViewModelProvider(this)[ColorViewModel::class.java]
 
          binding.activity = this
-         binding.onShow = true
+         binding.onShow = 0
         }
      fun buttonClicked(value : Int){
         colorViewModel.color.setValue(value)
