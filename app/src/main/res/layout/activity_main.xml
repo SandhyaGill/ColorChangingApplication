@@ -1,61 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <data>
+        <variable
+            name="activity"
+            type="com.sandhyagill.colorchangingapplication.MainActivity" />
+        <variable
+            name="onShow"
+            type="Boolean" />
+        <import type="android.view.View"/>
+    </data>
 
-    tools:context=".MainActivity"
-    android:layout_weight="1">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRed"
+            android:text="@string/red"
+            android:onClick="@{()->activity.buttonClicked(1)}"
+            android:backgroundTint="@color/red"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnBlue"
+            android:layout_margin="@dimen/margin_10dp"/>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/clMainActivity"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnBlue"
+            android:backgroundTint="@color/blue"
+            android:text="@string/blue"
+            android:onClick="@{()->activity.buttonClicked(2)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnRed"
+            app:layout_constraintEnd_toStartOf="@id/btnGreen"
+            android:layout_margin="@dimen/margin_10dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnRed"
-        android:text="@string/red"
-        android:backgroundTint="@color/red"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/margin_10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGreen"
+            android:backgroundTint="@color/green"
+            android:text="@string/green"
+            android:onClick="@{()->activity.buttonClicked(3)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/margin_10dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnBlue"
-        android:backgroundTint="@color/blue"
-        android:text="@string/blue"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnRed"
-        android:layout_margin="@dimen/margin_10dp"/>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup"
+            android:checkedButton="@={onShow}"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            app:layout_constraintTop_toBottomOf="@id/btnRed"
+            app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnGreen"
-        android:backgroundTint="@color/green"
-        android:text="@string/green"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnBlue"
-        android:layout_margin="@dimen/margin_10dp"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbShowView"
+                android:text="@string/show_view"
+                android:textSize="30sp"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbHideView"
+                android:text="@string/hide_view"
+                android:textSize="30sp"/>
+        </RadioGroup>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEnterAnything"
+            android:text="@string/show_view"
+            android:textSize="30sp"
+            android:visibility="@{onShow == @id/rbshowView ? View.VISIBLE : View.GONE}"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:padding="@dimen/margin_10dp"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup"/>
 
-  <androidx.fragment.app.FragmentContainerView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/fragment"
-      android:name="com.sandhyagill.colorchangingapplication.FirstFragment"
-      app:layout_constraintTop_toBottomOf="@id/clMainActivity"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"/>
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/fragment"
+            app:layout_constraintTop_toBottomOf="@+id/tvEnterAnything"
+            android:name="com.sandhyagill.colorchangingapplication.FirstFragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
