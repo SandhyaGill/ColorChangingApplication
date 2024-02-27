@@ -10,7 +10,7 @@
             type="com.sandhyagill.colorchangingapplication.MainActivity" />
         <variable
             name="onShow"
-            type="Boolean" />
+            type="Integer" />
         <import type="android.view.View"/>
     </data>
 
@@ -82,7 +82,7 @@
             android:id="@+id/tvEnterAnything"
             android:text="@string/show_view"
             android:textSize="30sp"
-            android:visibility="@{onShow == @id/rbshowView ? View.VISIBLE : View.GONE}"
+            android:visibility="@{onShow == @id/rbShowView ? View.VISIBLE : View.GONE}"
             android:layout_marginLeft="@dimen/margin_10dp"
             android:padding="@dimen/margin_10dp"
             app:layout_constraintTop_toBottomOf="@id/radioGroup"/>
